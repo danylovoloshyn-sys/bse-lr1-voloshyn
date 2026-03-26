@@ -1,3 +1,4 @@
+// Фінальна версія ЛР1
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -70,3 +71,5 @@ app.post('/api/messages', (req, res) => {
         data: newMessage
     });
 });
+console.log("Тестування гілки feature/add-main-code");
+// Тестовий рядок для гілки
