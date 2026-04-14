@@ -1,0 +1,49 @@
+@startuml Class
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam shadowing false
+
+class User {
+  - id : UUID
+  - email : String
+  - passwordHash : String
+  - is2FAEnabled : boolean = false
+  - ageConfirmed : boolean
+  - gdprAccepted : boolean
+  + openSettings() : void
+  + addApiKey(provider : String, key : String) : void
+  + removeApiKey(keyId : UUID) : void
+}
+
+class ApiKey {
+  - id : UUID
+  - provider : String
+  - encryptedValue : String
+  - createdAt : Date
+  + getDecryptedValue() : String
+}
+
+class AuthService {
+  + registerUser(email : String, pass : String, age13 : boolean, gdpr : boolean) : User
+  + enable2FA(u : User) : String
+  + verify2FA(code : String) : boolean
+}
+
+class EncryptionService {
+  - secretKey : String
+  + encryptData(plainText : String) : String
+  + decryptData(cipherText : String) : String
+}
+
+class AIService {
+  + generateResponse(prompt : String, key : ApiKey) : String
+}
+
+' Зв'язки між класами
+User "1" *-- "0..*" ApiKey : має >
+AuthService ..> User : створює / автентифікує >
+ApiKey ..> EncryptionService : використовує для захисту >
+User ..> EncryptionService : використовує для PII >
+AIService ..> ApiKey : використовує для генерації >
+
+@enduml

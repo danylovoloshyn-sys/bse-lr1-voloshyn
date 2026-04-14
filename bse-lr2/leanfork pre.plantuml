@@ -1,0 +1,39 @@
+@startuml pre
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+
+actor "👤 Гість" as Guest
+actor "👤 Авторизований користувач" as User
+actor "⚙️ ШІ Сервіс (OpenAI/Anthropic)" as API
+
+rectangle "Система авторизації та налаштувань" {
+  usecase "Реєстрація (FR-01)" as UC1
+  usecase "Підтвердження віку 13+" as UC1_1
+  usecase "Згода з GDPR" as UC1_2
+  
+  usecase "Доступ до Налаштувань (FR-03)" as UC3
+  usecase "Налаштування 2FA (FR-02)" as UC2
+  usecase "Управління API-ключами (FR-04)" as UC4
+  
+  usecase "Генерація відповідей ШІ (FR-05)" as UC5
+  usecase "Шифрування даних (FR-06)" as UC6
+}
+
+Guest --> UC1
+User --> UC3
+User --> UC5
+UC5 --> API
+
+' Зв'язки Include (Включення)
+UC1 ..> UC1_1 : <<include>>
+UC1 ..> UC1_2 : <<include>>
+UC4 ..> UC6 : <<include>>
+UC1 ..> UC6 : <<include>>
+
+' Зв'язки Extend (Розширення)
+' Стрілка йде ВІД розширення ДО базового прецеденту
+UC2 ..> UC3 : <<extend>>
+UC4 ..> UC3 : <<extend>>
+
+@enduml

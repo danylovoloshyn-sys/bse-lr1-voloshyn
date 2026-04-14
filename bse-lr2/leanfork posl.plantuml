@@ -1,0 +1,39 @@
+@startuml posl
+skinparam monochrome true
+skinparam shadowing false
+skinparam maxmessagesize 150
+
+actor "👤 Гість" as Guest
+participant "UI: Форма реєстрації" as UI
+participant ":AuthService" as Auth
+participant "DB: User" as DB
+
+Guest -> UI : Вводить email, пароль
+Guest -> UI : Встановлює чекбокси "Вік 13+" та "Згода з GDPR"
+Guest -> UI : Натискає "Зареєструватися"
+
+activate UI
+alt Чекбокси не встановлено
+    UI --> Guest : Помилка "Необхідна згода з правилами та підтвердження віку"
+else Дані валідні
+    UI -> Auth : registerUser(email, pass, age13=true, gdpr=true)
+    activate Auth
+    
+    Auth -> DB : checkEmailExists(email)
+    activate DB
+    DB --> Auth : exists = false
+    deactivate DB
+    
+    Auth -> DB : create(email, passHash, ageConfirmed, gdprAccepted)
+    activate DB
+    DB --> Auth : new User()
+    deactivate DB
+    
+    Auth --> UI : Success (User ID)
+    deactivate Auth
+    
+    UI --> Guest : Редирект на сторінку "Налаштування" (Авторизовано)
+end
+deactivate UI
+
+@enduml
