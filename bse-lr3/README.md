@@ -191,8 +191,7 @@ describe('AuthService Unit Tests', () => {
 ![Coverage Report](./img/coverage.png)
 
 6. Посилання на Git-репозиторій
-[Посилання на репозиторій додається сюди перед відправкою]
-
+https://github.com/danylovoloshyn-sys/bse-lr1-voloshyn/tree/lab3-test
 7. Висновки
 Під час виконання лабораторної роботи було створено програмний модуль системи авторизації та покрито його модульними тестами за допомогою фреймворку Jest.
 
