@@ -1,0 +1,23 @@
+{
+  "name": "opi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "jest --coverage"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danylovoloshyn-sys/bse-lr1-voloshyn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danylovoloshyn-sys/bse-lr1-voloshyn/issues"
+  },
+  "homepage": "https://github.com/danylovoloshyn-sys/bse-lr1-voloshyn#readme",
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
